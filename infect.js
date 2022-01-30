@@ -9,6 +9,37 @@ export function runnable_threads(ns, host, script) {
 };
 
 
+function choose_target(ns) {
+    const SENTINEL = "Nonesuch";
+    const candidates = [
+        // Just some hosts picked based on a ramp of 
+        // difficulty and pretty good money availability
+        "joesguns", // 10
+        "iron-gym", // 100 
+        "catalyst", // 425
+        "rho-construction", // 491 
+        "lexo-corp", // 719 
+        "defcomm", // 869 
+        "megacorp", // 1262
+        SENTINEL
+    ]
+    const mylvl = ns.getHackingLevel();
+
+    let target = SENTINEL;
+    for (let cc of candidates) {
+        if (cc == SENTINEL) {
+            break;
+        }
+        const reqlvl = ns.getServerRequiredHackingLevel(cc);
+        if (mylvl >= reqlvl) {
+            // TODO: This only works if the candidates are listed in increasing
+            // order of difficulty
+            target = cc;
+        }
+    }
+    return target;
+}
+
 async function infect_one(ns, host, script, target) {
     const hopen = sesame(ns, host);
     if (!hopen) {
@@ -78,18 +109,17 @@ function parseHostArgs(ns, args) {
     return hosts;
 }
 
+
+
 /** @param {NS} ns **/
 export async function main(ns) {
     let hosts = parseHostArgs(ns, ns.args);
 
     ns.print("Will infect ", hosts);
     const script = "autohack.js";
-    const target = "joesguns"; // 10
-    // const target = "catalyst"; // 450
-    // const target = "rho-construction"; // 500
-    // const target = "lexo-corp"; // 678
-    // const target = "defcomm"; // 1023
-    // const target = "megacorp"; // 1105
+
+    const target = choose_target(ns);
+    ns.tprint("Target is ", target);
 
     for (let hh of hosts) {
         await infect_one(ns, hh, script, target);
