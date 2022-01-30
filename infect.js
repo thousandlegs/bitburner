@@ -3,9 +3,13 @@ import { main as map_network, netmap } from "map_network.js";
 
 
 export function runnable_threads(ns, host, script) {
-    const ram = ns.getServerMaxRam(host);
+    const [rtotal, rused] = ns.getServerRam(host);
+    const ravail = rtotal - rused;
     const needed = ns.getScriptRam(script);
-    return Math.floor(ram / needed);
+    // Note that if you're running THIS script on <host>, you will be
+    // temporarily limiting yourself; but this does at least give you room
+    // to rerun this script again (useful on home)
+    return Math.floor(ravail / needed);
 };
 
 
