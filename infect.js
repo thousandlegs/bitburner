@@ -44,14 +44,14 @@ function choose_target(ns) {
     return target;
 }
 
-async function infect_one(ns, host, script, target) {
+export async function infect_one(ns, host, script, target) {
     if (!script) {
         script = "autohack.js";
     }
     if (!target) {
         target = choose_target(ns);
     }
-    
+
     const hopen = sesame(ns, host);
     if (!hopen) {
         return;

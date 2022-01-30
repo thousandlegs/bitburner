@@ -10,6 +10,7 @@ const scripts = [
     "autohack.js",
     "map_network.js",
     "purchase-servers.js",
+    "gang_manager.js",
     "bootstrap.js"
 ];
 

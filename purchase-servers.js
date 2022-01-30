@@ -34,7 +34,7 @@ export async function main(ns) {
             ns.print("Purchased server ", hostname);
 
             // TODO: Use exec() to get the cost of this script down
-            infect_one(ns, hostname);
+            await infect_one(ns, hostname);
         } else {
             // Let the money accumulate
             ns.print("Waiting for enough money to buy a server (need ", needed_money, ", have ", Math.round(available_money), ")");
