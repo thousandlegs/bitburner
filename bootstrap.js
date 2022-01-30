@@ -6,6 +6,11 @@
 const remote = "https://raw.githubusercontent.com/thousandlegs/bitburner/main/";
 const scripts = [
     "infect.js",
+    "sesame.js",
+    "autohack.js",
+    "map_network.js",
+    "purchase-servers.js",
+    "bootstrap.js"
 ];
 
 /** @param {NS} ns **/
