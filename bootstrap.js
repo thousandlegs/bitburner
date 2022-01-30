@@ -1,4 +1,4 @@
-// Pull code from Bitbucket to a game instance
+// Pull code from Github to a game instance
 //
 // Note: overwrites the target scripts unconditionally, so make sure
 // you're either using Git exclusively or have manually captured anything
