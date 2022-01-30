@@ -12,8 +12,6 @@ export async function autohack(ns, target) {
     // we'll weaken it before doing anything else
     let securityThresh = ns.getServerMinSecurityLevel(target) + 5;
 
-    // sesame(ns, target);
-
     // Infinite loop that continously hacks/grows/weakens the target server
     while (true) {
         let cursec = ns.getServerSecurityLevel(target);
@@ -45,7 +43,7 @@ export async function main(ns) {
     ns.print("Target is ", target);
 
     if (!ns.hasRootAccess(target)) {
-        ns.tprint("Must have root to autohack ", target);
+        ns.tprint("Must have root to hack ", target);
         return false;
     }
 

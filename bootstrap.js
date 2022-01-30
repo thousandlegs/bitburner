@@ -34,11 +34,18 @@ async function bootstrap(ns) {
     ns.exec(BOOTSTRAP, "home");
 }
 
+
+function parseArgs(ns, args) {
+    if (args[0] == "bootstrap") {
+        return bootstrap;
+    } else {
+        return update;
+    }
+    
+}
+
 /** @param {NS} ns **/
 export async function main(ns) {
-    if (ns.args[0] == "bootstrap") {
-        await bootstrap(ns);
-    } else {
-        await update(ns);
-    }
+    const command = parseArgs(ns, ns.args);
+    await command(ns);
 }
