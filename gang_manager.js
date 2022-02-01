@@ -25,14 +25,31 @@ function report(ns) {
 }
 
 
+function _set_whole_gang_activity(ns, activity) {
+    let members = ns.gang.getMemberNames();
+
+    for (let mm of members) {
+        ns.gang.setMemberTask(mm, activity);
+    }
+    ns.tprint("All ", members.length, " gang members set to engage in ", activity);
+}
+
+function fight(ns) {
+    _set_whole_gang_activity(ns, "Territory Warfare");
+}
+
+
 function error(ns) {
     ns.tprint("Unknown command");
 }
 
 
 function parseArgs(ns, args) {
+    // TODO: Turn into an object and just look up lol
     if (args[0] == "report") {
         return report;
+    } else if (args[0] == "fight") {
+        return fight;
     } else {
         return error;
     }
