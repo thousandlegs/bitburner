@@ -39,21 +39,53 @@ function fight(ns) {
 }
 
 
+function train(ns) {
+    _set_whole_gang_activity(ns, "Train Combat");
+}
+
+
 function error(ns) {
     ns.tprint("Unknown command");
 }
 
 
+function earn(ns) {
+    // TODO: Balance money-earning activities with Vigilante Justice 
+}
+
+
+function respect(ns) {
+    // TODO: Balance respect-garnering activities with Wanted cap
+}
+
+
+function somesome(ns) {
+    // TODO: Something like balance training combat, hacking, charisma
+    // maybe look for which ones are going slower than others?
+}
+
+
+function ascend(ns) {
+    // TODO: Like get people growing but ascend them when 
+    // the ascending is good
+    // look out for respect cost but don't sweat it too much
+    // Maybe look at total experience earned too? Or just decreasing
+    // rate?
+    // What about bonus time?
+
+}
+
+
+// TODO: get the names of functions from the functions
+// themselves lol
+const COMMANDS = {
+    "report": report,
+    "fight": fight,
+    "train": train
+};
+
 function parseArgs(ns, args) {
-    // TODO: Turn into an object and just look up lol
-    if (args[0] == "report") {
-        return report;
-    } else if (args[0] == "fight") {
-        return fight;
-    } else {
-        return error;
-    }
-    
+    return COMMANDS[args[0]] || error;
 }
 
 /** @param {NS} ns **/
