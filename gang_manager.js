@@ -44,6 +44,16 @@ function train(ns) {
 }
 
 
+function traffic(ns) {
+    _set_whole_gang_activity(ns, "Human Trafficking");
+}
+
+
+function vigilante(ns) {
+    _set_whole_gang_activity(ns, "Vigilante Justice");
+}
+
+
 function error(ns) {
     ns.tprint("Unknown command");
 }
@@ -81,7 +91,9 @@ function ascend(ns) {
 const COMMANDS = {
     "report": report,
     "fight": fight,
-    "train": train
+    "train": train,
+    "traffic": traffic,
+    "vigilante": vigilante
 };
 
 function parseArgs(ns, args) {
