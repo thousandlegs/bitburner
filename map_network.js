@@ -1,5 +1,13 @@
 export var netmap = [];
 
+// TODO: Make a list of Server objects instead
+
+// TODO: Make a legit graph of the network, with easy ways
+// to get a list of servers of various classes
+
+// TODO: Use a real Singleton pattern or at least return
+// the graph, instead of this odd global
+
 /** @param {NS} ns **/
 export async function main(ns, verbose) {
 
