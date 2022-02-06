@@ -1,5 +1,8 @@
+import { main as map_network, netmap } from "map_network.js";
+
+
 // Open any ports we can on the target server
-function sesame(ns, target) {
+export function sesame(ns, target) {
     if (ns.hasRootAccess(target)) {
         ns.print("Already have root on ", target);
         return true;
@@ -40,20 +43,20 @@ function sesame(ns, target) {
 
 /** @param {NS} ns **/
 export async function main(ns) {
-    if (ns.args.length < 1) {
-        ns.tprint("Usage: sesame HOST");
-        exit(1);
-    }
-
-
-    var target = ns.args[0];
-
-    var success = sesame(ns, target);
-    if (success) {
-        ns.tprint("Success");
+    let targets;
+    if (ns.args.length < 1 || ns.args[0] == "all") {
+        map_network(ns);
+        targets = netmap;
     } else {
-        ns.tprint("Failed to get root on ", target);
+        targets = ns.args[0];
     }
-}
 
-export { sesame };
+    let num_open = 0;
+    for (const tt of targets) {
+        var success = sesame(ns, tt);
+        if (success) {
+            ++num_open;
+        }
+    }
+    ns.tprint("Got root on ", num_open, " hosts");
+}

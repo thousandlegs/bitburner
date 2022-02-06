@@ -1,4 +1,4 @@
-import { get_hack_target } from "ports.js";
+import { get_hack_target } from "./ports.js";
 
 function dollars(nn) {
     return "$" + nn.toExponential(2);
@@ -49,7 +49,7 @@ export async function autohack(ns, target) {
                 return false;
             }        
         }
-        take_one_action(ns, target);
+        await take_one_action(ns, target);
     }
 }
 

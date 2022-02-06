@@ -1,4 +1,3 @@
-import { sesame } from "sesame.js";
 import { main as map_network, netmap } from "map_network.js";
 import { choose_target } from "choose_target.js";
 
@@ -14,35 +13,25 @@ export function runnable_threads(ns, host, script) {
 };
 
 
-export async function infect_one(ns, host, script, target) {
-    if (!script) {
-        script = "autohack.js";
-    }
+export async function infect_one(ns, host, target) {
+    const infrastructure = ["ports.js", "autohack.js"];
+
     if (!target) {
         target = choose_target(ns);
     }
 
-    const hopen = sesame(ns, host);
-    if (!hopen) {
-        return;
-    }
-
-    const reqlvl = ns.getServerRequiredHackingLevel(target);
-    const mylvl = ns.getHackingLevel();
-    if (mylvl < reqlvl) {
-        ns.print("Not strong enough to hack ", target, " need ", reqlvl, " have ", mylvl);
-    }
-
-    const tt = runnable_threads(ns, host, script);
+    const tt = runnable_threads(ns, host, "autohack.js");
     if (tt <= 0) {
         return;
     }
 
-    ns.scriptKill(script, host);
-    await ns.scp(script, "home", host);
+    ns.scriptKill("autohack.js", host);
+    for (const ss of infrastructure) {
+        await ns.scp(ss, "home", host);
+    }
 
-    ns.print('Running ', tt, ' threads of ', script, ' on ', host, ' targeting ', target);
-    ns.exec(script, host, tt, target);
+    ns.print('Running ', tt, ' threads of autohack.js on ', host, ' targeting ', target);
+    ns.exec("autohack.js", host, tt, target);
 };
 
 
@@ -97,9 +86,8 @@ export async function main(ns) {
     let hosts = parseHostArgs(ns, ns.args);
 
     ns.print("Will infect ", hosts);
-    const script = "autohack.js";
 
     for (let hh of hosts) {
-        await infect_one(ns, hh, script, "auto");
+        await infect_one(ns, hh, "auto");
     }
 }

@@ -1,4 +1,5 @@
 import { main as map_network, netmap } from "map_network.js";
+import { sesame } from "sesame.js";
 
 export function choose_target(ns) {
     map_network(ns);
@@ -13,10 +14,7 @@ export function choose_target(ns) {
         const ss = ns.getServer(hh);
          
         // First, skip anything we can't hack
-        if (ss.openPortCount < ss.numOpenPortsRequired) {
-            // TODO: Base this on our *ability* to get
-            // admin rights instead of whether we already have them
-            // maybe just try (with sesame)
+        if (!sesame(ss.hostname)) {
             continue;
         }
         if (ss.requiredHackingSkill > hacklvl) {
