@@ -1,5 +1,6 @@
 import { sesame } from "sesame.js";
 import { main as map_network, netmap } from "map_network.js";
+import { choose_target } from "choose_target.js";
 
 
 export function runnable_threads(ns, host, script) {
@@ -12,37 +13,6 @@ export function runnable_threads(ns, host, script) {
     return Math.floor(ravail / needed);
 };
 
-
-function choose_target(ns) {
-    const SENTINEL = "Nonesuch";
-    const candidates = [
-        // Just some hosts picked based on a ramp of 
-        // difficulty and pretty good money availability
-        "joesguns", // 10
-        "iron-gym", // 100 
-        "catalyst", // 425
-        "rho-construction", // 491 
-        "lexo-corp", // 719 
-        "defcomm", // 869 
-        "megacorp", // 1262
-        SENTINEL
-    ]
-    const mylvl = ns.getHackingLevel();
-
-    let target = SENTINEL;
-    for (let cc of candidates) {
-        if (cc == SENTINEL) {
-            break;
-        }
-        const reqlvl = ns.getServerRequiredHackingLevel(cc);
-        if (mylvl >= reqlvl) {
-            // TODO: This only works if the candidates are listed in increasing
-            // order of difficulty
-            target = cc;
-        }
-    }
-    return target;
-}
 
 export async function infect_one(ns, host, script, target) {
     if (!script) {
@@ -129,10 +99,7 @@ export async function main(ns) {
     ns.print("Will infect ", hosts);
     const script = "autohack.js";
 
-    const target = choose_target(ns);
-    ns.tprint("Target is ", target);
-
     for (let hh of hosts) {
-        await infect_one(ns, hh, script, target);
+        await infect_one(ns, hh, script, "auto");
     }
 }

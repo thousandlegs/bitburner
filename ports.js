@@ -51,6 +51,20 @@ export function get_port_val(ns, pdesc) {
     return _portval(_toport(ns, pdesc));
 }
 
+export function get_hack_target(ns) {
+    const port = _toport(ns, "HACK_TARGET");
+    if (!port.empty()) {
+        return port.peek();
+    }
+}
+
+export function get_gang_activity(ns) {
+    const port = _toport(ns, "GANG_ACTIVITY");
+    if (!port.empty()) {
+        return port.peek();
+    }
+}
+
 
 /** @param {NS} ns **/
 export async function main(ns) {

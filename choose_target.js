@@ -1,6 +1,6 @@
 import { main as map_network, netmap } from "map_network.js";
 
-function choose_target(ns) {
+export function choose_target(ns) {
     map_network(ns);
     const hacklvl = ns.getHackingLevel();
 
