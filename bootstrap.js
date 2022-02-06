@@ -12,6 +12,8 @@ const scripts = [
     "map_network.js",
     "purchase-servers.js",
     "gang_manager.js",
+    "ports.js",
+    "choose_target.js"
     BOOTSTRAP
 ];
 

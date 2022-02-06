@@ -4,15 +4,6 @@ export const well_known_ports = {
 };
 
 
-function _toportold(v) {
-    if (Number.isInteger(v)) {
-        return v;
-    } else {
-        return well_known_ports[v];
-    }
-}
-
-
 function _toport(ns, v) {
     for (const pnam in well_known_ports) {
         const pnum = well_known_ports[pnam];
