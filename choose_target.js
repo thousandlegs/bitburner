@@ -10,15 +10,17 @@ export function choose_target(ns) {
     let target_max_money = -1;
     let target_hack_level = Number.MAX_VALUE;
 
-    // TODO: Just include this in 
     for (let hh of netmap) {
+        ns.print("Considering ", hh, "...");
         const ss = ns.getServer(hh);
-         
+        
         // First, skip anything we can't hack
         if (!sesame(ns, ss.hostname)) {
+            ns.print("...but don't have root");
             continue;
         }
         if (ss.requiredHackingSkill > hacklvl) {
+            ns.print("...but we're not strong enough to hack (", hacklvl, " < ", ss.requiredHackingSkill, ")");
             continue;
         }
         // Note that the map_network function already skipped
@@ -35,6 +37,9 @@ export function choose_target(ns) {
         if (ss.moneyMax > target_max_money) {
             target = ss.hostname;
             target_max_money = ss.moneyMax;
+            ns.print("...has best money so far (", ss.moneyMax, "); saving");
+        } else {
+            ns.print("...but money's not good enough (", ss.moneyMax, " < ", target_max_money, ")");
         }
     }
 
