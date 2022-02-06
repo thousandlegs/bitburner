@@ -13,7 +13,7 @@ const scripts = [
     "purchase-servers.js",
     "gang_manager.js",
     "ports.js",
-    "choose_target.js"
+    "choose_target.js",
     BOOTSTRAP
 ];
 
