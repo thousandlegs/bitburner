@@ -8,7 +8,6 @@ export function choose_target(ns) {
 
     let target;
     let target_max_money = -1;
-    let target_hack_level = Number.MAX_VALUE;
 
     for (let hh of netmap) {
         ns.print("Considering ", hh, "...");
