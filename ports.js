@@ -42,6 +42,14 @@ export function get_port_val(ns, pdesc) {
     return _portval(_toport(ns, pdesc));
 }
 
+
+export function set_port_val(ns, pdesc, val) {
+    const port = _toport(ns, pdesc);
+    port.clear();
+    port.write(val);
+}
+
+
 export function get_hack_target(ns) {
     const port = _toport(ns, "HACK_TARGET");
     if (!port.empty()) {
@@ -62,10 +70,7 @@ export async function main(ns) {
     let show_report = true;
 
     if (ns.args[0] == "poke") {
-        const port = _toport(ns, ns.args[1]);
-        const val = ns.args[2];
-        port.clear();
-        port.write(val);
+        set_port_val(ns, ns.args[1], ns.args[2]);
     } else if (ns.args[0] == "peek") {
         ns.tprint(get_port_val(ns, ns.args[1]));
         show_report = false;

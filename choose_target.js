@@ -1,5 +1,6 @@
 import { main as map_network, netmap } from "map_network.js";
 import { sesame } from "sesame.js";
+import { well_known_ports, set_port_val } from "ports.js";
 
 export function choose_target(ns) {
     map_network(ns);
@@ -14,7 +15,7 @@ export function choose_target(ns) {
         const ss = ns.getServer(hh);
          
         // First, skip anything we can't hack
-        if (!sesame(ss.hostname)) {
+        if (!sesame(ns, ss.hostname)) {
             continue;
         }
         if (ss.requiredHackingSkill > hacklvl) {
@@ -45,5 +46,6 @@ export function choose_target(ns) {
 export async function main(ns) {
     let target = choose_target(ns);
 
-    ns.tprint("You should hack ", target);
+    set_port_val(ns, well_known_ports["HACK_TARGET"], target);
+    ns.tprint("Set hack target to ", target);
 }
