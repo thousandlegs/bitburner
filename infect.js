@@ -3,8 +3,10 @@ import { choose_target } from "choose_target.js";
 
 
 export function runnable_threads(ns, host, script) {
-    const [rtotal, rused] = ns.getServerRam(host);
+    const rtotal = ns.getServerMaxRam(host);
+    const rused = ns.getServerUsedRam(host);
     const ravail = rtotal - rused;
+    
     const needed = ns.getScriptRam(script);
     // Note that if you're running THIS script on <host>, you will be
     // temporarily limiting yourself; but this does at least give you room
