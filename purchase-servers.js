@@ -6,7 +6,7 @@ import {infect_one} from "infect.js";
 /** @param {NS} ns **/
 export async function main(ns) {
     // How much RAM each purchased server will have in GB
-    const ram_gb = ns.args[0] || 16;
+    const ram_gb = ns.args[0] || 2048;
 
     // TODO: Also let this script participate in the 
     // port instruction dance
@@ -34,7 +34,7 @@ export async function main(ns) {
             ns.print("Purchased server ", hostname);
 
             // TODO: Use exec() to get the cost of this script down
-            await infect_one(ns, hostname);
+            await infect_one(ns, hostname, "auto");
         } else {
             // Let the money accumulate
             ns.print("Waiting for enough money to buy a server (need ", needed_money, ", have ", Math.round(available_money), ")");
